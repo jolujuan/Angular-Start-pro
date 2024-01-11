@@ -1,0 +1,10 @@
+<p>main works!</p>
+<!-- <h2 [ngStyle]="{'color':quadre.date_start<1900 ? 'blue' : '#FF0000'}">{{quadre.title}}</h2>
+ -->
+<h2 [ngClass]="{ vintage: quadre[0].date_start }">{{ quadre[0].title }}</h2>
+<img
+  src="https://www.artic.edu/iiif/2/{{
+    quadre[0].image_id
+  }}/full/843,/0/default.jpg"
+  alt=""
+/>
