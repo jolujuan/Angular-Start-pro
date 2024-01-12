@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IArtwork } from '../../interfaces/i-artwork';
 
 @Component({
   selector: 'app-artwork',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './artwork.component.css'
 })
 export class ArtworkComponent {
-
+@Input() artwork?:IArtwork;
 }

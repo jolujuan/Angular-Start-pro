@@ -1,1 +1,16 @@
-<p>artwork works!</p>
+<div class="col">
+    <div class="card" style="width: 18rem">
+      <img
+        src="https://www.artic.edu/iiif/2/{{
+          artwork?.image_id
+        }}/full/843,/0/default.jpg"
+        alt=""
+      />
+      <div class="card-body">
+<!--         <h2>Indice,{{ $index }}</h2> -->
+        <h5 class="card-title">{{ artwork?.title }}</h5>
+        <p class="card-text" [innerHTML]="artwork?.description"></p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>

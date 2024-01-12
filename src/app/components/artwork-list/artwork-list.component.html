@@ -1,0 +1,16 @@
+<!-- <h2 [ngStyle]="{'color':quadre.date_start<1900 ? 'blue' : '#FF0000'}">{{quadre.title}}</h2>
+  <h2 [ngClass]="{ vintage: quadre.date_start }">{{ quadre.title }}</h2>
+<img src="https://www.artic.edu/iiif/2/{{quadre.image_id}}/full/843,/0/default.jpg"alt=""
+  />-->
+
+<!-- <div *ngFor="let quadre of quadres; let i = index"> -->
+<div class="container">
+  <h1>Artworks List</h1>
+  <div class="row">
+    @for (quadre of quadres; track $index) {
+        <!-- entre comilles el nom del bucle 
+        entre corchetes el nom de la variable @input -->
+    <app-artwork [artwork]="quadre"></app-artwork>
+    }
+  </div>
+</div>
