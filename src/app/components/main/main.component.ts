@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { IArtwork } from '../../interfaces/i-artwork';
 
 @Component({
   selector: 'app-main',
@@ -9,7 +10,7 @@ import { Component } from '@angular/core';
   styleUrl: './main.component.css',
 })
 export class MainComponent {
-  quadre = [{
+  quadres: IArtwork[]= [{
     "id": 3752,
     "api_model": "artworks",
     "api_link": "https://api.artic.edu/api/v1/artworks/3752",
