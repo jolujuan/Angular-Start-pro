@@ -8,6 +8,7 @@ import { IArtwork } from '../interfaces/i-artwork';
 export class ArtworkFilterPipe implements PipeTransform {
 
   transform(artworks: IArtwork[], filter:string): IArtwork[] {
+    console.log(filter)
     return artworks.filter(aw => aw.title.toLowerCase().includes(filter)||aw.description?.toLowerCase().includes(filter));
   }
 

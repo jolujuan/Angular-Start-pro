@@ -8302,7 +8302,8 @@
       .checkmark:after {
         -webkit-transition: none;
         -o-transition: none;
-        transition: none; } }
+        transition: none; } 
+      }
   
   /* Show the checkmark when checked */
   .checkbox-wrap input:checked ~ .checkmark:after {

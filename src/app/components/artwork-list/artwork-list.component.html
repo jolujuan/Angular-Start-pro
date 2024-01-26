@@ -2,20 +2,32 @@
 
 
 <div class="container">
-  <div class="container-page">
+  <div class="container-main">
     <h1>Artworks List</h1>
-    <div class="paginacion">
-      <a href="">Atrás</a>
-      <a href="">Adelante</a>
+    <div class="container-page">
+      <div class="paginacion" style="margin-right: 30px;">
+        <a (click)="paginate('back')">Atrás</a>
+        {{contPage}} -
+        {{totalPage}}
+        <a (click)="paginate('next')">Adelante</a>
+      </div>
+      <div class="paginacion search input">
+        <input type="text"  id="input" [(ngModel)]="pageNumber">
+      </div>
+      <div >
+        <input class="paginacion search output" type="button" value="IR" (click)="paginate('pageNumber')">
+      </div>
     </div>
-  </div>  
+  </div>
   <div class="row">
     <!-- entre comilles el nom del bucle 
         entre corchetes el nom de la variable @input
       se pasa al evento cada element del bucle -->
-    <div class="col" *ngFor="let quadre of quadres | artworkFilter:filter">
+<!--       <div class="col" *ngFor="let quadre of quadres | artworkFilter:filter">
+ -->
+    <div class="col" *ngFor="let quadre of quadres">
       <app-artwork [artwork]="quadre" (likeChanged)="toggleLike($event,quadre)"></app-artwork>
     </div>
-    
+
   </div>
 </div>

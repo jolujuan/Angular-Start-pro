@@ -3,6 +3,7 @@ https://transform.tools/json-to-typescript*/
 export interface IArtwork {
   
   like?: boolean;
+  total_pages:number;
 
   id: number;
   api_model: string;

@@ -10,7 +10,7 @@ const url = `https://api.artic.edu/api/v1/artworks`;
 })
 export class ApiServiceService {
 
-  public datos:IArtwork[]=[];
+  public datos: IArtwork[] = [];
 
   artworksSubject: Subject<IArtwork[]> = new Subject();
 
@@ -26,11 +26,27 @@ export class ApiServiceService {
     );
     return this.artworksSubject;
   }
+  /* Obtener las siguientes o anteriores paginas */
+  public getArtWorksPage(url: string): Observable<IArtwork[]> {
+    this.http.get<{ data: IArtwork[] }>(url).pipe(
+      map(response => response.data)
+    ).subscribe((artworks) => {
+      this.artworksSubject.next(artworks);
+    }
+    );
+    return this.artworksSubject;
+  }
+  /* Obtener la propiedad para mostrar todas las paginas */
+  public getArtWorksAll(): Observable<number> {
+    return this.http.get<{ pagination: { total_pages: number } }>(url).pipe(
+      map(response => response.pagination.total_pages)
+    );
+  }
 
-  public getArtworksFromIDs(artworkList: string[]): Observable<IArtwork[]>{
+  public getArtworksFromIDs(artworkList: string[]): Observable<IArtwork[]> {
     from(artworkList).pipe(
-      mergeMap(artwork_id =>{
-        return  this.http.get<{ data: IArtwork[] }>(`${url}/${artwork_id}`).pipe(
+      mergeMap(artwork_id => {
+        return this.http.get<{ data: IArtwork[] }>(`${url}/${artwork_id}`).pipe(
           map(response => response.data)
         )
       }),
@@ -41,6 +57,7 @@ export class ApiServiceService {
   }
 
   public filterArtWorks(filter: string): void {
+    console.log(`${url}/search?q=${filter}&fields=id,description,title,image_id`)
     this.http.get<{ data: IArtwork[] }>(`${url}/search?q=${filter}&fields=id,description,title,image_id`).pipe(
       map(response => response.data)
     ).subscribe((artworks) => {
