@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-10">
+            <div class="wrap d-md-flex">
+                <div class="img" style="background-image: url(assets/img/logo.png);">
+                </div>
+
+
+
+                @if(mode==='login'){
+                <div class="login-wrap p-4 p-md-5">
+                    <div class="d-flex">
+                        <div class="w-100">
+                            <h3 class="mb-4">Sign In</h3>
+                        </div>
+
+                    </div>
+                    <form class="signin-form">
+                        <div class="form-group mb-3">
+                            <label class="label" for="name">Email</label>
+                            <input type="text" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="password">Password</label>
+                            <input type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <button (click)="login()" type="submit"
+                                class="form-control btn btn-primary rounded submit px-3">
+                                Sign in
+                            </button>
+                        </div>
+                    </form>
+                    <p class="text-center">Sin cuenta? <a data-toggle="tab"
+                            [routerLink]="['/userManagement','register']">Register</a></p>
+
+                    @if(error){
+                    <div class="form-group" style="text-align: center;">
+                        {{error}}
+                    </div>
+                    }
+                </div>
+                }
+
+                @if(mode==='register'){
+                <div class="login-wrap p-4 p-md-5">
+                    <div class="d-flex">
+                        <div class="w-100">
+                            <h3 class="mb-4">Sign Up</h3>
+                        </div>
+
+                    </div>
+                    <form class="signin-form">
+                        <div class="form-group mb-3">
+                            <label class="label" for="name">First name</label>
+                            <input type="text" class="form-control" placeholder="First name" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="name">Last name</label>
+                            <input type="text" class="form-control" placeholder="Last name" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="name">Email address</label>
+                            <input type="email" [(ngModel)]="email" name="email" class="form-control"
+                                placeholder="Email address" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="label" for="password">Password</label>
+                            <input type="password" [(ngModel)]="password" name="password" class="form-control"
+                                placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+
+                            <button (click)="register()" type="submit"
+                                class="form-control btn btn-primary rounded submit px-3">
+                                Sign up
+                            </button>
+
+
+                        </div>
+                    </form>
+                    <p class="text-center">Ya tiene cuenta? <a data-toggle="tab"
+                            [routerLink]="['/userManagement','login']">Iniciar sesión</a></p>
+
+                    @if(error){
+                    <div class="form-group" style="text-align: center;">
+                        {{error}}
+                    </div>
+                    }
+
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

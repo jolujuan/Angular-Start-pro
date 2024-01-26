@@ -1,1 +1,47 @@
-<p>footer works!</p>
+<footer class="footer-07" style="margin-top: 30px;">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <h2 class="footer-heading"><a href="#" class="logo">ArtWork.com</a></h2>
+            <p class="menu">
+                <a href="#">Home</a>
+                <a [routerLink]="['/favorites']">Favorites</a>
+                <a href="#">About</a>
+                <a href="#">Listing</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+            </p>
+            <ul class="ftco-footer-social p-0">
+                <ul class="ftco-footer-social p-0">
+                    <li class="ftco-animate">
+                        <a data-toggle="tooltip" data-placement="top" title="Instagram">
+                            <span class="ion-logo-instagram">
+                                <img src="assets/img/icons/instagram.svg" alt="Instagram">
+                            </span>
+                        </a>
+                    </li>
+                    <li class="ftco-animate">
+                        <a data-toggle="tooltip" data-placement="top" title="Facebook">
+                            <span class="ion-logo-facebook">
+                                <img src="assets/img/icons/facebook.svg" alt="Facebook">
+                            </span>
+                        </a>
+                    </li>
+                    <li class="ftco-animate">
+                        <a data-toggle="tooltip" data-placement="top" title="Twitter">
+                            <span class="ion-logo-twitter">
+                                <img src="assets/img/icons/gorjeo.svg" alt="Twitter">
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <p class="copyright">
+                Copyright &copy; {{ currentYear }} Jose Luis </p>
+            <p>Todos los derechos reservados </p>
+        </div>
+    </div>
+</footer>

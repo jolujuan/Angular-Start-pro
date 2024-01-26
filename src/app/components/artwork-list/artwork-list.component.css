@@ -1,0 +1,26 @@
+.row {
+    margin-top: 40px;
+}
+
+.container-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    border-radius: 10px;
+    border: 1px solid blue;
+    width: 20em;
+    height: 3em;
+    padding: 10px;
+}
+
+.paginacion a{
+    font-size: 15px;
+    text-decoration: none;
+}

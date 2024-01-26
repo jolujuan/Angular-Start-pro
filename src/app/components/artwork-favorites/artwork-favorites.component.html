@@ -1,0 +1,15 @@
+<div [ngStyle]="{'height': noHayLikes ? '13em' : 'auto'}" class="container">
+
+    <h1 *ngIf="noHayLikes">Empty List</h1>
+
+    <ng-container *ngIf="!noHayLikes">
+        <h1>Favorites List</h1>
+        <table class="table">
+            <tbody>
+                <ng-container *ngFor="let quadre of quadres">
+                    <tr *ngIf="quadre.like" app-artwork-row [artwork]="quadre"></tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </ng-container>
+</div>
