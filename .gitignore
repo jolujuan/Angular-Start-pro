@@ -42,5 +42,4 @@ testem.log
 Thumbs.db
 src/environments/environment.prod.ts
 src/environments/environment.ts
-src/app/components/login/login.component.css
-src/app/components/footer/footer.component.css
+
