@@ -36,8 +36,8 @@ export class ApiServiceService {
     );
     return this.artworksSubject;
   }
-  /* Obtener la propiedad para mostrar todas las paginas */
-  public getArtWorksAll(): Observable<number> {
+  /* Obtener la propiedad para mostrar listado de paginas */
+  public getArtWorksAll(url:string): Observable<number> {
     return this.http.get<{ pagination: { total_pages: number } }>(url).pipe(
       map(response => response.pagination.total_pages)
     );
@@ -56,13 +56,9 @@ export class ApiServiceService {
     return this.artworksSubject;
   }
 
-  public filterArtWorks(filter: string): void {
-    console.log(`${url}/search?q=${filter}&fields=id,description,title,image_id`)
-    this.http.get<{ data: IArtwork[] }>(`${url}/search?q=${filter}&fields=id,description,title,image_id`).pipe(
+  public filterArtWorks(filter: string): Observable<IArtwork[]> {
+    return this.http.get<{ data: IArtwork[] }>(`${url}/search?q=${filter}&fields=id,description,title,image_id`).pipe(
       map(response => response.data)
-    ).subscribe((artworks) => {
-      this.artworksSubject.next(artworks);
-    }
     );
   }
 

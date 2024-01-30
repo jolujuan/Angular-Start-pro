@@ -7,10 +7,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   standalone: true,
   /* asi aniran les routes
   routerLink y routerlinkactive */
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  filter:string='';
 }

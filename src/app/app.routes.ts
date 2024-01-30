@@ -5,10 +5,11 @@ import { ArtworkFavoritesComponent } from './components/artwork-favorites/artwor
 import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
-    { path: 'artworks', component: ArtworkListComponent },
-    { path: 'artwork/:id', component: ArtworkComponent },
-    { path: 'favorites', component: ArtworkFavoritesComponent },
-    { path: 'userManagement/:setmode', component: LoginComponent },
-    { path: 'userManagement/:logout', component: LoginComponent },
-    { path: '**', component: ArtworkListComponent }
+  { path: 'artworks', component: ArtworkListComponent },
+  { path: 'artworks/:search', component: ArtworkListComponent },
+  { path: 'artwork/:id', component: ArtworkComponent },
+  { path: 'favorites', component: ArtworkFavoritesComponent },
+  { path: 'userManagement/:setmode', component: LoginComponent },
+  { path: 'userManagement/:logout', component: LoginComponent },
+  { path: '**', component: ArtworkListComponent },
 ];

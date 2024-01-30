@@ -14,40 +14,42 @@
     flex-direction: row;
 }
 
+.drop-down{
+    justify-content: flex-end;
+}
+
 .paginacion {
     display: flex;
     justify-content: space-between;
-    justify-items: center;
+    align-items: center;
     border-radius: 10px;
     border: 1px solid #0b5ed7;
     width: 19em;
-    height: 3em;
-    padding: 10px;
-    margin-right: 10px;
+    height: 2.5em;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .search{
-    width: 3em;
+    width: 2.5em;
     justify-content: center;
     align-items: center;
+    margin-right: 15px;
+    font-weight: 500;
 }
 
 .output{
-    text-align: center;
     color: #0b5ed7;
     cursor: pointer;
     background-color: white;
 }
 
-.input{
-    border: none;
-}
+
 
 #input{
-   
     border: 1px solid #0b5ed7;
     border-radius: 10px;
-    height: 47px;
+    height: 2.5em;
     width: 60px;
     text-align: center;
 }
@@ -64,9 +66,13 @@
     cursor: pointer;
     margin-left: 10px;
     margin-right: 10px;
+    width: 60px;
+    display: inline-block;
+    
 }
 
 .paginacion a:hover{
+    
     font-weight: bold;
 }
 
@@ -74,3 +80,4 @@
     margin: 0;
     padding: 0;
 }
+

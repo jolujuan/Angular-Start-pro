@@ -1,21 +1,64 @@
-<div class="containter">
-<div class="card" style="width: 18rem; margin-bottom: 20px;" >
-  <img src="https://www.artic.edu/iiif/2/{{
+<div class="container">
+  @if (!id) {
+  <div class="card" style="width: 18rem; margin-bottom: 20px;">
+    <img src="https://www.artic.edu/iiif/2/{{
       artwork?.image_id
     }}/full/843,/0/default.jpg" alt="" />
 
-  <div class="card-body" >
-    <h5 class="card-title" *ngIf="artwork" [ngStyle]="{'color': artwork.date_start < 1900 ? 'blue' : '#FF0000'}">{{ artwork.title }}</h5>
-    <p class="card-text" [innerHTML]="artwork?.description"></p>
-    <a [routerLink]="['/artwork',artwork?.id]" class="btn btn-primary">Detalles</a>
-    <div class="heart-icon" (mouseover)="mouseover = true" (mouseleave)="mouseover = false" (click)="toggleLike()">
-      @if (artwork?.like) {
-      <div>♥</div>
+    <div class="card-body">
+      <h5 class="card-title" *ngIf="artwork" [ngStyle]="{'color': artwork.date_start < 1900 ? 'blue' : '#FF0000'}">{{
+        artwork.title }} {{artwork.fiscal_year}}</h5>
 
-      }@else{
-      <div>♡</div>
-      }
+      <p class="card-text" style="font-weight: 500;">{{artwork.place_of_origin}}</p>
+
+      <p class="card-text" *ngIf="artwork?.description">
+        <span class="card-text" *ngIf="!showFullDescription"
+          [innerHTML]="artwork?.description | slice:0:200"><span>mass</span></span>
+        <span class="card-text" *ngIf="showFullDescription" [innerHTML]="artwork?.description"></span>
+        <a (click)="showFullDescription = !showFullDescription" class="btn-link">
+          {{ showFullDescription ? '... Menos' : '... Más '}}
+        </a>
+      </p>
+
+      <!-- Botón para alternar la descripción -->
+      <div class="botones">
+
+        <a [routerLink]="['/artwork',artwork?.id]" class="btn btn-primary">Detalles</a>
+        <div class="heart-icon" (mouseover)="mouseover = true" (mouseleave)="mouseover = false" (click)="toggleLike()">
+          @if (artwork?.like) {
+          <div>♥</div>
+
+          }@else{
+          <div>♡</div>
+          }
+        </div>
+      </div>
     </div>
   </div>
-</div>
+  }@else {
+  <div class="card" style="margin-bottom: 20px;">
+    <img src="https://www.artic.edu/iiif/2/{{
+      artwork?.image_id
+    }}/full/843,/0/default.jpg" alt="" />
+
+    <div class="card-body">
+      <h5 class="card-title" *ngIf="artwork" [ngStyle]="{'color': artwork.date_start < 1900 ? 'blue' : '#FF0000'}">{{
+        artwork.title }}</h5>
+      <p class="card-text">{{artwork.fiscal_year}}</p>
+      <p class="card-text" style="white-space: pre-line;">{{ artwork.artist_display }}</p>
+
+      <p class="card-text" [innerHTML]="artwork?.description"></p>
+      <div class="heart-icon"  (mouseover)="mouseover = true" (mouseleave)="mouseover = false" (click)="toggleLike()">
+        @if (artwork?.like) {
+        <div>♥</div>
+
+        }@else{
+        <div >♡</div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+
+
 </div>

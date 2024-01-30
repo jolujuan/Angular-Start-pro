@@ -7,9 +7,8 @@ import { IArtwork } from '../../interfaces/i-artwork';
   standalone: true,
   imports: [],
   templateUrl: './artwork-row.component.html',
-  styleUrl: './artwork-row.component.css'
+  styleUrl: './artwork-row.component.css',
 })
 export class ArtworkRowComponent {
-@Input() artwork!:IArtwork;
-
+  @Input() artwork!: IArtwork;
 }

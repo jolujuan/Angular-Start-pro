@@ -7,27 +7,41 @@
     <div class="container-page">
       <div class="paginacion" style="margin-right: 30px;">
         <a (click)="paginate('back')">Atrás</a>
-        {{contPage}} -
+        {{currentPage}} -
         {{totalPage}}
         <a (click)="paginate('next')">Adelante</a>
       </div>
       <div class="paginacion search input">
-        <input type="text"  id="input" [(ngModel)]="pageNumber">
+        <input type="text" id="input" [(ngModel)]="numberPage" (keyup.enter)="paginate('numberPage')">
       </div>
-      <div >
-        <input class="paginacion search output" type="button" value="IR" (click)="paginate('pageNumber')">
+      <div>
+        <input class="paginacion search output" type="button" value="IR"  (click)="paginate('numberPage')">
       </div>
     </div>
   </div>
-  <div class="row">
-    <!-- entre comilles el nom del bucle 
+  <div class="container-item">
+    <div class="row">
+      <!-- entre comilles el nom del bucle 
         entre corchetes el nom de la variable @input
       se pasa al evento cada element del bucle -->
-<!--       <div class="col" *ngFor="let quadre of quadres | artworkFilter:filter">
- -->
-    <div class="col" *ngFor="let quadre of quadres">
-      <app-artwork [artwork]="quadre" (likeChanged)="toggleLike($event,quadre)"></app-artwork>
+      <!--<div class="col" *ngFor="let quadre of quadres | artworkFilter:filter">-->
+      <div class="col" *ngFor="let quadre of quadres">
+        <app-artwork [artwork]="quadre" (likeChanged)="toggleLike($event,quadre)"></app-artwork>
+      </div>
     </div>
-
+    <div class="container-page drop-down">
+      <div class="paginacion" style="margin-right: 30px;">
+        <a (click)="paginate('back')">Atrás</a>
+        {{currentPage}} -
+        {{totalPage}}
+        <a (click)="paginate('next')">Adelante</a>
+      </div>
+      <div class="paginacion search input">
+        <input type="text" id="input" [(ngModel)]="numberPage" (keyup.enter)="paginate('numberPage')">
+      </div>
+      <div>
+        <input class="paginacion search output" type="button" value="IR"  (click)="paginate('numberPage')">
+      </div>
+    </div>
   </div>
 </div>

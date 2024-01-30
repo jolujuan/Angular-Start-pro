@@ -1,9 +1,61 @@
+* {
+  text-align: justify;
+}
+
+.card{
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); 
+
+  padding: 0;
+  margin: 0;
+}
+
+.card:hover{
+	box-shadow: 0 20px 80px #888;
+
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-text {
+  margin-top: 15px;
+}
+
 .heart-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 2em;
-    color: red;
-    z-index: 1;
-    cursor: pointer;
-  }
+  font-size: 2.5em;
+  color: red;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.card {
+  width: 80%;
+
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.botones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-link {
+  cursor: pointer;
+  color: #0d6efd;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.btn-link:hover {
+  color: #063f96;
+
+}
+
