@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { ArtworkComponent } from './components/artwork/artwork.component';
-import { ArtworkListComponent } from './components/artwork-list/artwork-list.component';
 import { ArtworkFavoritesComponent } from './components/artwork-favorites/artwork-favorites.component';
+import { ArtworkListComponent } from './components/artwork-list/artwork-list.component';
+import { ArtworkComponent } from './components/artwork/artwork.component';
 import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
@@ -11,5 +11,7 @@ export const routes: Routes = [
   { path: 'favorites', component: ArtworkFavoritesComponent },
   { path: 'userManagement/:setmode', component: LoginComponent },
   { path: 'userManagement/:logout', component: LoginComponent },
-  { path: '**', component: ArtworkListComponent },
+  /*   { path: '**', component: ArtworkListComponent }, 
+  comentado porque el programa no cargaba cuando importada el servicio usuarios en el componente lista
+   */
 ];

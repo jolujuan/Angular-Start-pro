@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { debounceTime } from 'rxjs';
 import { IArtwork } from '../../interfaces/i-artwork';
 import { ArtworkFilterPipe } from '../../pipes/artwork-filter.pipe';
 import { ApiServiceService } from '../../services/api-service.service';
 import { FilterService } from '../../services/filter.service';
+import { UsersServiceService } from '../../services/users.service.service';
 import { ArtworkRowComponent } from '../artwork-row/artwork-row.component';
 import { ArtworkComponent } from '../artwork/artwork.component';
-import { debounceTime, tap } from 'rxjs';
-import { Title } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { UsersServiceService } from '../../services/users.service.service';
 
 @Component({
   selector: 'app-artwork-list',
@@ -25,13 +25,14 @@ import { UsersServiceService } from '../../services/users.service.service';
   templateUrl: './artwork-list.component.html',
   styleUrl: './artwork-list.component.css',
 })
-export class ArtworkListComponent implements OnInit {
+export class ArtworkListComponent {
   constructor(
+    private usersService: UsersServiceService,
+
     private router: ActivatedRoute,
     private artService: ApiServiceService,
     private filterService: FilterService,
-    private titleService: Title,
-    private usersService:UsersServiceService
+    private titleService: Title
   ) {
     this.isSearchActive = false;
   }
@@ -95,9 +96,8 @@ export class ArtworkListComponent implements OnInit {
 
   toggleLike($event: boolean, artwork: IArtwork) {
     artwork.like = !artwork.like;
-    console.log("guardadooo")
-/*     this.usersService.setFavorites(artwork.id+"");
- */  }
+    this.usersService.setFavorites(artwork.id + '');
+  }
 
   filter: string = '';
   quadres: IArtwork[] = [];

@@ -1,9 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { IArtwork } from '../../interfaces/i-artwork';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ApiServiceService } from '../../services/api-service.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { IArtwork } from '../../interfaces/i-artwork';
+import { ApiServiceService } from '../../services/api-service.service';
 
 @Component({
   selector: 'app-artwork',

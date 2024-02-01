@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment.prod';
 import { Subject } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 import { IUser } from '../interfaces/i-user';
 
 const emptyUser: IUser = {
@@ -14,7 +14,7 @@ const emptyUser: IUser = {
 @Injectable({
   providedIn: 'root',
 })
-export class UsersServiceService {
+export class UsersServiceService implements OnInit {
   supaClient: any = null;
 
   constructor() {
@@ -22,6 +22,9 @@ export class UsersServiceService {
       environment.SUPABASE_URL,
       environment.SUPABASE_KEY
     );
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
   userSubject: Subject<IUser> = new Subject();
@@ -66,7 +69,12 @@ export class UsersServiceService {
     return { success: true, data };
   }
 
-  
+  async setFavorites(artwork_id: string): Promise<void> {
+    let { data } = await this.supaClient.auth.getSession();
+    await this.supaClient
+      .from('favorites')
+      .insert([{ uid: data.session.user.id, artwork_id: artwork_id }]);
+  }
 
   async isLogged(): Promise<boolean> {
     let { data } = await this.supaClient.auth.getSession();

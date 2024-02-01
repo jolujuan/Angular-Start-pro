@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ArtworkListComponent } from '../artwork-list/artwork-list.component';
-import { ArtworkRowComponent } from '../artwork-row/artwork-row.component';
 import { RouterOutlet } from '@angular/router';
+import { ArtworkListComponent } from '../artwork-list/artwork-list.component';
 
 @Component({
   selector: 'app-main',

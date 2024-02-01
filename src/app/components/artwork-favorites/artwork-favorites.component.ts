@@ -1,12 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ArtworkRowComponent } from '../artwork-row/artwork-row.component';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { IArtwork } from '../../interfaces/i-artwork';
 import { ApiServiceService } from '../../services/api-service.service';
-import { Title } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { UsersServiceService } from '../../services/users.service.service';
 import { ShowPopUpServiceService } from '../../services/show-pop-up-service.service';
-import { Router } from '@angular/router';
+import { UsersServiceService } from '../../services/users.service.service';
+import { ArtworkRowComponent } from '../artwork-row/artwork-row.component';
 
 @Component({
   selector: 'app-artwork-favorites',
