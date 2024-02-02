@@ -22,6 +22,10 @@ export class ShowPopUpServiceService {
           break;
         case 'expira':
           return '<p> La sesión ha expirado. Por favor, vuelve a iniciar sesión. </p>';
+          break;
+        case 'favoritesSave':
+          return '<p>Inicia sesión para guardar favoritos. </p>';
+          break;
         default:
           return '<p>Contenido no disponible.</p>';
           break;

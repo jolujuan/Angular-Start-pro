@@ -19,10 +19,10 @@ export class ArtworkFavoritesComponent implements OnInit {
   @ViewChild('divPopUp') divPopUp: ElementRef | undefined;
 
   constructor(
-    private dataService: ApiServiceService,
     private titleService: Title,
     private router: Router,
     private usersService: UsersServiceService,
+    private apiService: ApiServiceService,
     private popupService: ShowPopUpServiceService
   ) {}
 
@@ -30,15 +30,37 @@ export class ArtworkFavoritesComponent implements OnInit {
     this.titleService.setTitle('FAVORITES');
     //Comprobar que este logueado para mostrar la vista
     this.usersService.isLogged().then((logged) => {
-      if (!logged) this.showPopUp('favorites', 'userManagement/login');
-      else {
-        this.quadres = this.dataService.datos; //Recuperar los datos del servicio
-        this.noHayLikes = this.quadres.every((quadre) => !quadre.like); //Comprobar si existen los datos
+      if (!logged) {
+        this.showPopUp('favorites', 'userManagement/login');
+      } else {
+        this.loadFavorites();
       }
     });
   }
 
-  quadres: IArtwork[] = [];
+  loadFavorites(): void {
+    this.usersService.isLogged().then((logged) => {
+      if (!logged) this.showPopUp('favorites', 'userManagement/login');
+      else {
+        this.usersService.favoritesSubject.subscribe((data) => {
+          //Convertir el resultado de la promesa en un array para iterar
+          if (data.length === 0)
+            this.noHayLikes = this.quadresFav.every((quadre) => !quadre.like); //Comprobar si existen los datos
+
+          let artworksIds = data.map((item) => item.artwork_id);
+
+          this.apiService //Convertirlo a la lista de strings artorks ids devueltos
+            .getArtworksFromIDs(artworksIds)
+            .subscribe((artworkList: IArtwork[]) => {
+              this.quadresFav = artworkList;
+            });
+        });
+      }
+      this.usersService.getFavorites();
+    });
+  }
+
+  quadresFav: IArtwork[] = [];
   noHayLikes: boolean = false;
 
   showPopUp(type: string, ruta: string) {

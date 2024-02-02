@@ -10,10 +10,7 @@ const url = `https://api.artic.edu/api/v1/artworks`;
 })
 export class ApiServiceService {
 
-  public datos: IArtwork[] = [];
-
   artworksSubject: Subject<IArtwork[]> = new Subject();
-
   constructor(private http: HttpClient) { }
 
   /* Realizar la peticion, transformar los datos a data, se suscribe al observable y devuelve el subject*/

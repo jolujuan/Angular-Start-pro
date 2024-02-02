@@ -28,6 +28,7 @@ export class LoginComponent {
     this.mode = value;
     if (value === 'logout') {
       this.usersService.logout();
+      localStorage.clear(); //guardo el uid del usuario
       this.router.navigate(['userManagement', 'login']);
     }
   }

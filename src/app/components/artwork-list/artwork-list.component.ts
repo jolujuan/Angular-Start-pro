@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { IArtwork } from '../../interfaces/i-artwork';
 import { ArtworkFilterPipe } from '../../pipes/artwork-filter.pipe';
 import { ApiServiceService } from '../../services/api-service.service';
 import { FilterService } from '../../services/filter.service';
+import { ShowPopUpServiceService } from '../../services/show-pop-up-service.service';
 import { UsersServiceService } from '../../services/users.service.service';
 import { ArtworkRowComponent } from '../artwork-row/artwork-row.component';
 import { ArtworkComponent } from '../artwork/artwork.component';
@@ -26,13 +27,17 @@ import { ArtworkComponent } from '../artwork/artwork.component';
   styleUrl: './artwork-list.component.css',
 })
 export class ArtworkListComponent {
+  @ViewChild('divPopUp') divPopUp: ElementRef | undefined;
+
   constructor(
     private usersService: UsersServiceService,
 
     private router: ActivatedRoute,
     private artService: ApiServiceService,
     private filterService: FilterService,
-    private titleService: Title
+    private titleService: Title,
+    private popupService: ShowPopUpServiceService,
+    private routerPop: Router
   ) {
     this.isSearchActive = false;
   }
@@ -47,8 +52,6 @@ export class ArtworkListComponent {
     if (!this.isSearchActive) {
       /* llamar a la peticion de datos y manejarlos mediante la suscripcion del observable */
       this.artService.getArtWorks().subscribe((artworkList: IArtwork[]) => {
-        this.artService.datos = artworkList; //Guardar los datos en el servicio
-
         this.quadres = artworkList;
       });
     } else {
@@ -94,14 +97,18 @@ export class ArtworkListComponent {
     });
   }
 
-  toggleLike($event: boolean, artwork: IArtwork) {
-    artwork.like = !artwork.like;
-    //this.usersService.setFavorites(artwork.id + '');
+  async toggleLike($event: boolean, artwork: IArtwork) {
+    this.usersService.isLogged().then((logged) => {
+      if (!logged) this.showPopUp('favoritesSave', 'userManagement/login');
+      else {
+        artwork.like = !artwork.like;
+        this.usersService.setFavorites(artwork.id + '');
+      }
+    });
   }
 
   filter: string = '';
   quadres: IArtwork[] = [];
-  @Input() onlyFavorites: string = '';
   mouseover: boolean = false;
 
   currentPage: number = 1;
@@ -137,9 +144,17 @@ export class ArtworkListComponent {
     this.artService
       .getArtWorksPage(urlSearch)
       .subscribe((artworkList: IArtwork[]) => {
-       // this.artService.datos = artworkList; //Guardar los datos en el servicio
+        // this.artService.datos = artworkList; //Guardar los datos en el servicio
         this.quadres = artworkList;
         window.scrollTo(0, 0);
       });
+  }
+
+  showPopUp(type: string, ruta: string) {
+    this.divPopUp!.nativeElement.appendChild(this.popupService.popup(type));
+    this.popupService.showPopup();
+    this.popupService.onClosePopup.subscribe(() => {
+      this.routerPop.navigate([ruta]);
+    });
   }
 }

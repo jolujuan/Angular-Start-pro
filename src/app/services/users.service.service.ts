@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
-import { Subject } from 'rxjs';
+import { Observable, Subject, from, tap } from 'rxjs';
 import { environment } from '../../environments/environment.prod';
 import { IUser } from '../interfaces/i-user';
 
@@ -14,17 +14,13 @@ const emptyUser: IUser = {
 @Injectable({
   providedIn: 'root',
 })
-export class UsersServiceService implements OnInit{
+export class UsersServiceService implements OnInit {
   supaClient: any = null;
 
-  constructor() {
-   
-  }
-  ngOnInit(): void {
-    
-  }
+  constructor() {}
+  ngOnInit(): void {}
 
-  inicialingSupa(){
+  inicialiTing() {
     this.supaClient = createClient(
       environment.SUPABASE_URL,
       environment.SUPABASE_KEY
@@ -36,6 +32,7 @@ export class UsersServiceService implements OnInit{
     new Subject();
 
   async register(email: string, password: string): Promise<any> {
+    this.inicialiTing();
     const { user, error } = await this.supaClient.auth.signUp({
       email,
       password,
@@ -52,10 +49,11 @@ export class UsersServiceService implements OnInit{
   }
 
   async login(email: string, password: string): Promise<any> {
+    this.inicialiTing();
     const { data, error } = await this.supaClient.auth.signInWithPassword({
       email,
       password,
-    }); //let data = session.data;
+    });
     if (error) {
       if (error.message.includes('Email not confirmed')) {
         return {
@@ -69,19 +67,62 @@ export class UsersServiceService implements OnInit{
         };
       } else return { success: false, message: error.message };
     }
-    console.log(data.session);
+    const uid = data.session.user.id;
+    localStorage.setItem('uid', uid);
+    this.getProfile(uid);
+
     return { success: true, data };
   }
 
+  getProfile(userId: string): void {
+    let profilePromise: Promise<{ data: IUser[] }> = this.supaClient
+      .from('profiles')
+      .select('*')
+      // Filters
+      .eq('id', userId);
+
+    from(profilePromise)
+      .pipe(tap((data) => console.log(data)))
+      .subscribe(async (profile: { data: IUser[] }) => {
+        this.userSubject.next(profile.data[0]);
+        const avatarFile = profile.data[0].avatar_url.split('/').at(-1);
+        const { data, error } = await this.supaClient.storage
+          .from('avatars')
+          .download(avatarFile);
+        const url = URL.createObjectURL(data);
+        profile.data[0].avatar_url = url;
+        this.userSubject.next(profile.data[0]);
+      });
+  }
+
   async setFavorites(artwork_id: string): Promise<void> {
-    let { data } = await this.supaClient.auth.getSession();
-    await this.supaClient
+    let { data, error } = await this.supaClient.auth.getSession();
+    let promiseFavorites: Promise<boolean> = this.supaClient
       .from('favorites')
       .insert([{ uid: data.session.user.id, artwork_id: artwork_id }]);
+    await promiseFavorites;
+    //promiseFavorites.then(() => this.getFavorites());
+  }
+
+  getFavorites(): void {
+    let uid = localStorage.getItem('uid');
+    if (uid) {
+      let promiseFavorites: Promise<{
+        data: { id: number; uid: string; artwork_id: string }[];
+      }> = this.supaClient
+        .from('favorites')
+        .select('*')
+        // Filters
+        .eq('uid', uid);
+
+      promiseFavorites.then((data) => {
+        this.favoritesSubject.next(data.data);
+      });
+    }
   }
 
   async isLogged(): Promise<boolean> {
-    this.inicialingSupa();
+    this.inicialiTing();
     let { data } = await this.supaClient.auth.getSession();
     if (data.session) return true;
     return false;
