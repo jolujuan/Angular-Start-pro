@@ -11,7 +11,6 @@ export const routes: Routes = [
   { path: 'favorites', component: ArtworkFavoritesComponent },
   { path: 'userManagement/:setmode', component: LoginComponent },
   { path: 'userManagement/:logout', component: LoginComponent },
-  /*   { path: '**', component: ArtworkListComponent }, 
-  comentado porque el programa no cargaba cuando importada el servicio usuarios en el componente lista
-   */
+    { path: '**', component: ArtworkListComponent } 
+  
 ];

@@ -14,17 +14,21 @@ const emptyUser: IUser = {
 @Injectable({
   providedIn: 'root',
 })
-export class UsersServiceService implements OnInit {
+export class UsersServiceService implements OnInit{
   supaClient: any = null;
 
   constructor() {
+   
+  }
+  ngOnInit(): void {
+    
+  }
+
+  inicialingSupa(){
     this.supaClient = createClient(
       environment.SUPABASE_URL,
       environment.SUPABASE_KEY
     );
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   userSubject: Subject<IUser> = new Subject();
@@ -77,6 +81,7 @@ export class UsersServiceService implements OnInit {
   }
 
   async isLogged(): Promise<boolean> {
+    this.inicialingSupa();
     let { data } = await this.supaClient.auth.getSession();
     if (data.session) return true;
     return false;

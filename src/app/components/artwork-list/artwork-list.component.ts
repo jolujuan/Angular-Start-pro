@@ -96,7 +96,7 @@ export class ArtworkListComponent {
 
   toggleLike($event: boolean, artwork: IArtwork) {
     artwork.like = !artwork.like;
-    this.usersService.setFavorites(artwork.id + '');
+    //this.usersService.setFavorites(artwork.id + '');
   }
 
   filter: string = '';
@@ -137,7 +137,7 @@ export class ArtworkListComponent {
     this.artService
       .getArtWorksPage(urlSearch)
       .subscribe((artworkList: IArtwork[]) => {
-        this.artService.datos = artworkList; //Guardar los datos en el servicio
+       // this.artService.datos = artworkList; //Guardar los datos en el servicio
         this.quadres = artworkList;
         window.scrollTo(0, 0);
       });
