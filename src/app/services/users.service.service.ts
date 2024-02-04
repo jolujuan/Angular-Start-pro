@@ -1,14 +1,16 @@
 import { Injectable, OnInit } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
-import { Observable, Subject, from, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, from, tap } from 'rxjs';
 import { environment } from '../../environments/environment.prod';
 import { IUser } from '../interfaces/i-user';
+import { FormGroup } from '@angular/forms';
 
 const emptyUser: IUser = {
   id: '0',
   avatar_url: 'none',
   full_name: 'none',
   username: 'none',
+  website: 'none',
 };
 
 @Injectable({
@@ -27,7 +29,8 @@ export class UsersServiceService implements OnInit {
     );
   }
 
-  userSubject: Subject<IUser> = new Subject();
+  // En UsersServiceService
+  userSubject: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(emptyUser);
   favoritesSubject: Subject<{ id: number; uid: string; artwork_id: string }[]> =
     new Subject();
 
@@ -69,29 +72,77 @@ export class UsersServiceService implements OnInit {
     }
     const uid = data.session.user.id;
     localStorage.setItem('uid', uid);
-    this.getProfile(uid);
+    this.getProfile();
 
     return { success: true, data };
   }
 
-  getProfile(userId: string): void {
+  async setProfile(formulario: FormGroup) {
+    const formData = formulario.value;
+    console.log('Se guardaran los datos==>');
+
+    // Revisa si el perfil existe
+    const { data: profileData, error: profileError } = await this.supaClient
+      .from('profiles')
+      .select()
+      .eq('uid', formData.id)
+      .single();
+
+    if (profileError) {
+      //sino existe crear uno
+      console.log('procede a insertarlos por primera vez');
+      // Inserta un nuevo perfil
+      const { data: insertedData, error: insertError } = await this.supaClient
+        .from('profiles')
+        .insert([
+          {
+            uid: formData.id,
+            username: formData.username,
+            full_name: formData.full_name,
+            avatar_url: formData.avatar_url,
+            website: formData.website,
+          },
+        ]);
+    }
+
+    if (profileData) {
+      console.log('procede a actualizar los datos');
+
+      // Actualiza el perfil existente
+      const { data: updatedData, error: updateError } = await this.supaClient
+        .from('profiles')
+        .update({
+          username: formData.username,
+          full_name: formData.full_name,
+          avatar_url: formData.avatar_url,
+          website: formData.website,
+        })
+        .eq('uid', formData.id);
+    }
+  }
+
+  getProfile(): void {
+    const uid = localStorage.getItem('uid');
+
     let profilePromise: Promise<{ data: IUser[] }> = this.supaClient
       .from('profiles')
       .select('*')
       // Filters
-      .eq('id', userId);
+      .eq('uid', uid);
 
     from(profilePromise)
       .pipe(tap((data) => console.log(data)))
       .subscribe(async (profile: { data: IUser[] }) => {
+        console.log('Mostrando datos guardados==>');
+
         this.userSubject.next(profile.data[0]);
-        const avatarFile = profile.data[0].avatar_url.split('/').at(-1);
+        /* const avatarFile = profile.data[0].avatar_url.split('/').at(-1);
         const { data, error } = await this.supaClient.storage
           .from('avatars')
           .download(avatarFile);
         const url = URL.createObjectURL(data);
         profile.data[0].avatar_url = url;
-        this.userSubject.next(profile.data[0]);
+        this.userSubject.next(profile.data[0]); */
       });
   }
 
@@ -123,8 +174,12 @@ export class UsersServiceService implements OnInit {
 
   async isLogged(): Promise<boolean> {
     this.inicialiTing();
-    let { data } = await this.supaClient.auth.getSession();
-    if (data.session) return true;
+    const session = await this.supaClient.auth.getSession();
+
+    if (session.data.session) {
+      this.getProfile();
+      return true;
+    }
     return false;
   }
 

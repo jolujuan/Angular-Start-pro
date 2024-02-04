@@ -6,7 +6,7 @@
 <div class="recuadro container text-center text-lg-start">
     <h1 class="form-title">Profile</h1>
 
-    <form [formGroup]="formulario">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
 
 
         <div class="input-group mb-3">
@@ -24,12 +24,12 @@
             <input formControlName="website" type="text" class="form-control" id="basic-url"
                 aria-describedby="basic-addon3" name="website" />
         </div>
-
         <div style="display:flex;justify-content:center">
             <img class="avatar_profile" style="max-width: 150px"
                 [src]="formulario.get('avatar_url')?.value || 'assets/img/icons/profile.png'" alt="Avatar" />
 
         </div>
+        <br>
 
         <label for="basic-url" class="form-label"><b>Avatar</b></label>
         <div class="input-group mb-3">
