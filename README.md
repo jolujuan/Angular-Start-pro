@@ -8,7 +8,7 @@ _Este proyecto Angular tiene como objetivo principal mostrar datos de una API ex
 - **Registro y Autenticación de Usuarios**: Seguridad y facilidad para manejar tu cuenta.
 - **Visualización de Cuadros**: Los usuarios pueden explorar una amplia colección de cuadros disponibles en la API..
 - **Paginación y Navegación**: Los usuarios pueden paginar a través de los resultados de la API para ver más cuadros. También existe opción de ir directamente a una página especifica.
-- **Busqueda**: Podras realizar una busqueda reactiva de cualquier cuadro relazionado con el texto.
+- **Busqueda**: Podràs realizar una búsqueda reactiva de cualquier cuadro relacionado con el texto de búsqueda.
 - **Gestión de Favoritos**:Los usuarios autenticados pueden marcar cuadros como favoritos y ver su lista personal de cuadros favoritos.
 - **Detalles**: Muestra más información acerca de un cuadro.
 - **Perfil Modificable**: Modificar usuario, contraseña o añadir una imagen de perfil!.
