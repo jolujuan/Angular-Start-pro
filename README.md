@@ -58,7 +58,7 @@ Para ofrecer una experiencia personalizada y segura, ArtWorks utiliza un sistema
 - Visualizar cuadros previamente guardados.
 
 
-![Registro 4](https://i.postimg.cc/VkkTyQ3y/2.png) ![Registro 4](https://i.postimg.cc/3xfqYfTk/3.png)
+![Registro Art](https://i.postimg.cc/Zq4xhvDj/register.jpg) 
 
 ## Construido con 🛠️
 
