@@ -9,14 +9,14 @@ _Este proyecto Angular tiene como objetivo principal mostrar datos de una API ex
 - **Visualización de Cuadros**: Los usuarios pueden explorar una amplia colección de cuadros disponibles en la API..
 - **Paginación y Navegación**: Los usuarios pueden paginar a través de los resultados de la API para ver más cuadros. También existe opción de ir directamente a una página especifica.
 - **Gestión de Favoritos**:Los usuarios autenticados pueden marcar cuadros como favoritos y ver su lista personal de cuadros favoritos.
+- **Detalles**: Muestra más información acerca de un cuadro.
 - **Perfil Modificable**: Modificar usuario, contraseña o añadir una imagen de perfil!.
 - **Interfaz Intuitiva**: Una experiencia de usuario fluida y sin complicaciones.
 
 ### Caracteristicas adicionales
 - **PopUps**: Muestran mensajes cuando el token caduca, se completa un registro o no tiene permisos.
 
-![Adicional 4](https://i.postimg.cc/fy7Fswzs/4.png) ![Registro 4](https://i.postimg.cc/xjLBMPKZ/5.png)
-
+![Adicional Art](https://i.postimg.cc/vZLNJVvH/detail.png) 
 ## Comenzando 🚀
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
