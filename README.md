@@ -1,7 +1,7 @@
 # ArtWorks - WebSite
-<img src="https://i.postimg.cc/g2f1ysjj/8etqxa.gif" alt="gif"/>
+![Adicional Art](https://i.postimg.cc/rFDhh4vr/home.jpg)
 
-_Este proyecto Angular tiene como objetivo principal mostrar datos de una API externa proporcionada por el Instituto de Arte de Chicago. La API utilizada es la siguiente: [API del Instituto de Arte de Chicago](https://api.artic.edu/api/v1/artworks){:target="_blank"}._
+_Este proyecto Angular tiene como objetivo principal mostrar datos de una API externa proporcionada por el Instituto de Arte de Chicago. La API utilizada es la siguiente: [API del Instituto de Arte de Chicago](https://api.artic.edu/api/v1/artworks)._
 
 ## Características
 
