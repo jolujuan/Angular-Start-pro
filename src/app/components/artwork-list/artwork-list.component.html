@@ -4,8 +4,7 @@
 
 <div class="container">
   <h1>Artworks List</h1>
-  <div class="container-main">
-    <div class="container-page">
+    <div class="container-page" style="margin-top: 0px;">
       <div class="paginacion" style="margin-right: 30px;">
         <a (click)="paginate('back')">Atrás</a>
         {{currentPage}} -
@@ -18,7 +17,6 @@
       <div>
         <input class="paginacion search output" type="button" value="IR"  (click)="paginate('numberPage')">
       </div>
-    </div>
   </div>
   <div class="container-item">
     <div class="row">
