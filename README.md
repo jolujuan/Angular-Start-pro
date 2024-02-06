@@ -1,5 +1,5 @@
 # ArtWorks - WebSite
-<img src="https://imgflip.com/gif/8etqxa" alt="gif" width="30%" />
+<img src="https://i.postimg.cc/g2f1ysjj/8etqxa.gif" alt="gif" width="30%" />
 
 _Este proyecto Angular tiene como objetivo principal mostrar datos de una API externa proporcionada por el Instituto de Arte de Chicago. La API utilizada es la siguiente: [API del Instituto de Arte de Chicago](https://api.artic.edu/api/v1/artworks){:target="_blank"}._
 
