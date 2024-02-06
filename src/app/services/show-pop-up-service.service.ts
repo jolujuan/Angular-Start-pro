@@ -1,4 +1,9 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import {
+  EventEmitter,
+  Injectable,
+  Renderer2,
+  RendererFactory2,
+} from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -6,8 +11,11 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class ShowPopUpServiceService {
   onClosePopup = new EventEmitter<void>();
 
-  constructor() {}
+  private renderer: Renderer2;
 
+  constructor(rendererFactory: RendererFactory2) {
+    this.renderer = rendererFactory.createRenderer(null, null);
+  }
   popup(type: any) {
     const format = (type: any) => {
       switch (type) {
@@ -17,7 +25,7 @@ export class ShowPopUpServiceService {
         case 'register':
           return '<p>Usuario registrado exitosamente. Por favor revisa tu correo.</p>';
           break;
-        case 'perfil':
+        case 'profile':
           return '<p>Inicia sesión para mostrar el perfil.</p>';
           break;
         case 'expira':

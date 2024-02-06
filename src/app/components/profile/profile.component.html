@@ -3,6 +3,8 @@
         width: 50%;
     }
 </style>
+<div #divPopUp></div>
+
 <div class="recuadro container text-center text-lg-start">
     <h1 class="form-title">Profile</h1>
 
@@ -50,10 +52,5 @@
                 No valid
             </div>
             }
-
-
-            <div>{{formulario.value | json}} </div>
-            <div>{{formulario.get('website')?.valid}} </div>
         </div>
-
     </form>

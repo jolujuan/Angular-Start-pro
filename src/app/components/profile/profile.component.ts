@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -8,9 +8,12 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { IUser } from '../../interfaces/i-user';
-import { UsersServiceService } from '../../services/users.service.service';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { map } from 'rxjs';
+import { IUser } from '../../interfaces/i-user';
+import { ShowPopUpServiceService } from '../../services/show-pop-up-service.service';
+import { UsersServiceService } from '../../services/users.service.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,9 +23,16 @@ import { map } from 'rxjs';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('divPopUp') divPopUp: ElementRef | undefined;
+
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UsersServiceService
+    private userService: UsersServiceService,
+    private titleService: Title,
+    private usersService: UsersServiceService,
+    private popupService: ShowPopUpServiceService,
+    private router: Router
+
   ) {
     this.crearFormulario();
   }
@@ -30,6 +40,8 @@ export class ProfileComponent implements OnInit {
   formulario!: FormGroup;
 
   ngOnInit(): void {
+    this.titleService.setTitle('PROFILE');
+
     this.userService.isLogged().then((logged) => {
       if (logged) {
         this.userService.userSubject
@@ -45,11 +57,12 @@ export class ProfileComponent implements OnInit {
             })
           )
           .subscribe((profile) => this.formulario.setValue(profile));
+      } else {
+        this.showPopUp('profile', 'userManagement/login');
       }
     });
   }
 
-  // En tu componente de perfil
   onSubmit() {
     if (this.formulario.valid) {
       this.userService.setProfile(this.formulario);
@@ -92,6 +105,14 @@ export class ProfileComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  showPopUp(type: string, ruta: string) {
+    this.divPopUp!.nativeElement.appendChild(this.popupService.popup(type));
+    this.popupService.showPopup();
+    this.popupService.onClosePopup.subscribe(() => {
+      this.router.navigate([ruta]);
+    });
   }
 }
 
