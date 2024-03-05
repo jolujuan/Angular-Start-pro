@@ -40,7 +40,7 @@ Git Bash for Windows
 
 ### Instalación 🔧
 
-_Para comenzar a jugar a Coloca 4, sigue estos pasos:_
+_Para comenzar sigue estos pasos:_
 
 1. Clona el repositorio en tu máquina local.
 2. Ejecuta npm install para instalar las dependencias.
